@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <!-- Maintenance Mode View -->
+        <record id="view_maintenance_mode_form" model="ir.ui.view">
+            <field name="name">maintenance.mode.form</field>
+            <field name="model">maintenance.mode</field>
+            <field name="arch" type="xml">
+                <form string="Maintenance Mode">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="is_maintenance_mode" string="Enable Maintenance Mode"/>
+                            <field name="closed_by" invisible="1"/>
+                            <field name="closed_date" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="allowed_user_group_ids" widget="many2many_tags" string="Allowed User Groups"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Maintenance Mode Action -->
+        <record id="action_maintenance_mode" model="ir.actions.act_window">
+            <field name="name">Maintenance Mode</field>
+            <field name="res_model">maintenance.mode</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_maintenance_mode_form"/>
+        </record>
+
+        <!-- Maintenance Mode Menu -->
+        <menuitem id="menu_maintenance_mode" name="Maintenance Mode" action="action_maintenance_mode"/>
+
+        <!-- Maintenance Mode Access Rights -->
+        <record id="access_maintenance_mode" model="ir.model.access">
+            <field name="name">Maintenance Mode</field>
+            <field name="model_id" ref="model_maintenance_mode"/>
+            <field name="group_id" ref="base.group_system"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+    </data>
+</odoo>
